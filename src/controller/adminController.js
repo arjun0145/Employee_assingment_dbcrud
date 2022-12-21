@@ -18,10 +18,20 @@ export async function SaveAdmin(req, res) {
   }
 }
 
+export async function fetchadmin(req, res) {
+  try {
+    const x = await AdminModel.find();
+    res.status(StatusCodes.OK).json(x);
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ massage: "nahi mila kuch bhi " });
+  }
+}
+
 export async function Adminlogin(req, res) {
   try {
-    filter = { phone: req.body.phone };
-    const admin = await AdminModel.findOne(filter);
+    const admin = await AdminModel.findOne({phone:req.body.phone});
     if (admin) {
       let password = req.body.password;
 
